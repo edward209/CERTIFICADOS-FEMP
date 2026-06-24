@@ -150,6 +150,27 @@ def crear_certificado():
 def verificar_certificado():
     resultado = None
 
+    codigo_url = request.args.get("codigo", "").strip().upper()
+
+    if codigo_url:
+        certificados = cargar_certificados()
+
+        for certificado in certificados:
+            if certificado["codigo"].upper() == codigo_url:
+                resultado = {
+                    "valido": True,
+                    "codigo": certificado["codigo"],
+                    "nombre": certificado["nombre"],
+                    "cedula": certificado["cedula"],
+                    "curso": certificado["curso"],
+                    "duracion": certificado["duracion"],
+                    "fecha": certificado["fecha"]
+                }
+                break
+
+        if resultado is None:
+            resultado = {"valido": False}
+
     if request.method == "POST":
         codigo_buscado = request.form["codigo"].strip().upper()
         certificados = cargar_certificados()
@@ -171,7 +192,6 @@ def verificar_certificado():
             resultado = {"valido": False}
 
     return render_template("verificar_certificado.html", resultado=resultado)
-
 
 @app.route("/admin")
 def admin():
