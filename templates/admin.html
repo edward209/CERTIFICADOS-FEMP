@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Panel Administrativo</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Gestión general de certificados, cursos y plantillas.
+    </p>
+
+    <hr>
+
+    <div class="menu">
+        <a href="/crear">Crear Certificado</a>
+        <a href="/verificar">Verificar</a>
+        <a href="/plantillas">Gestionar Plantillas</a>
+        <a href="/cursos">Gestionar Cursos</a>
+        <a href="/logout">Cerrar Sesión</a>
+        <a href="/">Inicio</a>
+    </div>
+
+    <hr>
+
+    <h2>Resumen General</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>Total Certificados</h2>
+            <p>{{ total }}</p>
+        </div>
+
+        {% for curso, cantidad in estadisticas.items() %}
+        <div class="card">
+            <h2>{{ curso }}</h2>
+            <p>{{ cantidad }}</p>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <hr>
+
+    <h2>Buscar Certificado</h2>
+
+    <form method="GET">
+        <input type="text" name="buscar" placeholder="Buscar por nombre, cédula, código o curso" value="{{ busqueda }}">
+
+        <div class="menu">
+            <button type="submit">Buscar</button>
+            <a href="/admin">Limpiar</a>
+        </div>
+    </form>
+
+    <hr>
+
+    <h2>Certificados encontrados: {{ certificados|length }}</h2>
+
+    <table>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Curso</th>
+            <th>Fecha</th>
+            <th>PDF</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for certificado in certificados %}
+        <tr>
+            <td>{{ certificado.codigo }}</td>
+            <td>{{ certificado.nombre }}</td>
+            <td>{{ certificado.cedula }}</td>
+            <td>{{ certificado.curso }}</td>
+            <td>{{ certificado.fecha }}</td>
+
+            <td>
+                <a href="/{{ certificado.pdf }}" target="_blank">Ver PDF</a>
+            </td>
+
+            <td>
+                <a href="/editar/{{ certificado.codigo }}">Editar</a>
+
+                <form method="POST"
+                      action="/eliminar/{{ certificado.codigo }}"
+                      onsubmit="return confirm('¿Seguro que deseas eliminar este certificado?');"
+                      style="display:inline-block;">
+
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Cursos</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Gestión de Cursos</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Cree cursos con duración y plantilla PDF asignada.
+    </p>
+
+    <hr>
+
+    <form method="POST">
+        <label>Nombre del curso:</label>
+        <input type="text" name="nombre" placeholder="Ej: TCCC" required>
+
+        <label>Duración:</label>
+        <input type="text" name="duracion" placeholder="Ej: 40 Horas" required>
+
+        <label>Plantilla PDF:</label>
+        <select name="plantilla" required>
+            {% for plantilla in plantillas %}
+                <option value="{{ plantilla }}">{{ plantilla }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">Guardar Curso</button>
+            <a href="/admin">Volver al Panel</a>
+        </div>
+    </form>
+
+    <hr>
+
+    <h2>Cursos existentes</h2>
+
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Duración</th>
+            <th>Plantilla</th>
+        </tr>
+
+        {% for curso in cursos %}
+        <tr>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.duracion }}</td>
+            <td>{{ curso.plantilla }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

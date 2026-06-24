@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Certificado</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Editar Certificado</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Actualice la información del certificado.
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        <label>Nombre:</label>
+        <input type="text"
+               name="nombre"
+               value="{{ certificado.nombre }}"
+               required>
+
+        <label>Cédula:</label>
+        <input type="text"
+               name="cedula"
+               value="{{ certificado.cedula }}"
+               required>
+
+        <label>Curso:</label>
+        <select name="curso" required>
+
+            {% for curso in cursos %}
+
+            <option value="{{ curso.nombre }}"
+                {% if curso.nombre == certificado.curso %}
+                    selected
+                {% endif %}
+            >
+                {{ curso.nombre }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+        <label>Fecha:</label>
+        <input type="date"
+               name="fecha"
+               required>
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">
+                Guardar Cambios
+            </button>
+
+            <a href="/admin">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

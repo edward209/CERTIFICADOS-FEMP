@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Administrativo</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Acceso Administrativo</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Ingrese sus credenciales para acceder al panel administrativo.
+    </p>
+
+    <hr>
+
+    {% if error %}
+        <p class="error" style="text-align:center;">
+            {{ error }}
+        </p>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>Usuario:</label>
+        <input
+            type="text"
+            name="usuario"
+            placeholder="Ingrese su usuario"
+            required
+        >
+
+        <label>Contraseña:</label>
+        <input
+            type="password"
+            name="clave"
+            placeholder="Ingrese su contraseña"
+            required
+        >
+
+        <br><br>
+
+        <div class="menu">
+
+            <button type="submit">
+                Iniciar Sesión
+            </button>
+
+            <a href="/">
+                Volver al Inicio
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado Generado</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Certificado Generado</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        El certificado fue creado correctamente.
+    </p>
+
+    <hr>
+
+    <table>
+        <tr><th>Nombre</th><td>{{ nombre }}</td></tr>
+        <tr><th>Cédula</th><td>{{ cedula }}</td></tr>
+        <tr><th>Curso</th><td>{{ curso }}</td></tr>
+        <tr><th>Duración</th><td>{{ duracion }}</td></tr>
+        <tr><th>Fecha</th><td>{{ fecha }}</td></tr>
+        <tr><th>Código</th><td>{{ codigo }}</td></tr>
+        <tr><th>Plantilla usada</th><td>{{ plantilla }}</td></tr>
+    </table>
+
+    <br>
+
+    <div class="menu">
+        <a href="/{{ ruta_pdf }}" target="_blank">Descargar PDF</a>
+        <a href="/crear">Crear otro certificado</a>
+        <a href="/verificar">Verificar certificado</a>
+        <a href="/admin">Panel administrativo</a>
+        <a href="/">Inicio</a>
+    </div>
+
+</div>
+
+</body>
+</html>

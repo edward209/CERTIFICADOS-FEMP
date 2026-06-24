@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Certificado</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Crear Certificado</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Complete los datos del estudiante para generar el certificado.
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        <label>Nombre del estudiante:</label>
+        <input type="text" name="nombre" placeholder="Ej: Edward Francisco" required>
+
+        <label>Cédula:</label>
+        <input type="text" name="cedula" placeholder="Ej: 40209556014" required>
+
+        <label>Curso realizado:</label>
+        <select name="curso" required>
+            {% for curso in cursos %}
+                <option value="{{ curso.nombre }}">
+                    {{ curso.nombre }} - {{ curso.duracion }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Fecha de finalización:</label>
+        <input type="date" name="fecha" required>
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">Generar Certificado</button>
+            <a href="/">Volver al inicio</a>
+            <a href="/admin">Panel administrativo</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

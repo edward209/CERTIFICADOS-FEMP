@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantillas PDF</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Gestión de Plantillas</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Suba nuevas plantillas PDF para los certificados.
+    </p>
+
+    <hr>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Nombre de la plantilla:</label>
+        <input type="text" name="nombre" placeholder="Ej: tccc.pdf" required>
+
+        <label>Archivo PDF:</label>
+        <input type="file" name="archivo" accept=".pdf" required>
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">Subir Plantilla</button>
+            <a href="/admin">Volver al Panel</a>
+        </div>
+    </form>
+
+    <hr>
+
+    <h2>Plantillas existentes</h2>
+
+    <table>
+        <tr>
+            <th>Archivo</th>
+        </tr>
+
+        {% for plantilla in plantillas %}
+        <tr>
+            <td>{{ plantilla }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>

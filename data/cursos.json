@@ -1,0 +1,22 @@
+[
+    {
+    "nombre": "Manejo de Hemorragias",
+    "duracion": "8 Horas",
+    "plantilla": "manejo_hemorragias.pdf"
+},
+    {
+        "nombre": "Primeros Auxilios Basicos",
+        "duracion": "16 Horas",
+        "plantilla": "primeros_auxilios.pdf"
+    },
+    {
+        "nombre": "TCCC",
+        "duracion": "40 Horas",
+        "plantilla": "tccc.pdf"
+    },
+    {
+        "nombre": "TECC",
+        "duracion": "32 Horas",
+        "plantilla": "tecc.pdf"
+    }
+]

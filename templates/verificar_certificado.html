@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar Certificado</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Verificar Certificado</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Ingrese el código del certificado para validar su autenticidad.
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        <label>Código del Certificado:</label>
+
+        <input
+            type="text"
+            name="codigo"
+            placeholder="Ej: FEMP-2026-0001"
+            required
+        >
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">
+                Verificar Certificado
+            </button>
+
+            <a href="/">
+                Volver al Inicio
+            </a>
+        </div>
+
+    </form>
+
+    {% if resultado %}
+
+        <hr>
+
+        {% if resultado.valido %}
+
+            <h2 class="success">
+                ✅ Certificado Válido
+            </h2>
+
+            <table>
+
+                <tr>
+                    <th>Código</th>
+                    <td>{{ resultado.codigo }}</td>
+                </tr>
+
+                <tr>
+                    <th>Nombre</th>
+                    <td>{{ resultado.nombre }}</td>
+                </tr>
+
+                <tr>
+                    <th>Cédula</th>
+                    <td>{{ resultado.cedula }}</td>
+                </tr>
+
+                <tr>
+                    <th>Curso</th>
+                    <td>{{ resultado.curso }}</td>
+                </tr>
+
+                <tr>
+                    <th>Duración</th>
+                    <td>{{ resultado.duracion }}</td>
+                </tr>
+
+                <tr>
+                    <th>Fecha</th>
+                    <td>{{ resultado.fecha }}</td>
+                </tr>
+
+            </table>
+
+        {% else %}
+
+            <h2 class="error">
+                ❌ Certificado No Encontrado
+            </h2>
+
+        {% endif %}
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

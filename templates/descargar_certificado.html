@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Descargar Certificado</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Descargar Certificado</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Ingrese el código y la fecha de finalización para descargar su certificado.
+    </p>
+
+    <hr>
+
+    {% if error %}
+        <p class="error" style="text-align:center;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+
+        <label>Código del certificado:</label>
+        <input type="text" name="codigo" placeholder="Ej: FEMP-2026-0001" required>
+
+        <label>Fecha de finalización:</label>
+        <input type="date" name="fecha" required>
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">Descargar PDF</button>
+            <a href="/">Volver al inicio</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

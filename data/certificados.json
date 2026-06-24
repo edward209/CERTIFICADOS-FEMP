@@ -1,0 +1,142 @@
+[
+    {
+        "codigo": "FEMP-2026-0005",
+        "nombre": "Edward Francisco",
+        "cedula": "402-7764673-7",
+        "curso": "Primeros Auxilios Basicos",
+        "duracion": "16 Horas",
+        "fecha": "2026-07-12",
+        "plantilla": "primeros_auxilios.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0005.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0005",
+        "nombre": "Edward Francisco",
+        "cedula": "402-7764673-7",
+        "curso": "Primeros Auxilios Basicos",
+        "duracion": "16 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "primeros_auxilios.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0005.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0005",
+        "nombre": "rdb",
+        "cedula": "402-7764673-7",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0005.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0006",
+        "nombre": "Edward Francisco",
+        "cedula": "402-7764673-7",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0006.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0007",
+        "nombre": "Edward Francisco",
+        "cedula": "402-7764673-7",
+        "curso": "Primeros Auxilios Basicos",
+        "duracion": "16 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "primeros_auxilios.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0007.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0008",
+        "nombre": "reny Mnuel",
+        "cedula": "402-7764673-7",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "18 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0008.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0009",
+        "nombre": "Edward",
+        "cedula": "40209556014",
+        "curso": "TCCC",
+        "duracion": "40 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "tccc.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0009.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0010",
+        "nombre": "miguel",
+        "cedula": "40209556014",
+        "curso": "TECC",
+        "duracion": "32 Horas",
+        "fecha": "26 DE JUNIO DE 2026",
+        "plantilla": "tecc.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0010.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0011",
+        "nombre": "prueba en blamco",
+        "cedula": "40209556014",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0011.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0012",
+        "nombre": "Edward Francisco",
+        "cedula": "402-0987656-8",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "tccc.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0012.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0013",
+        "nombre": "pruebe ",
+        "cedula": "402-0987656-8",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "26 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0013.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0014",
+        "nombre": "Edward Francisco",
+        "cedula": "402-0987656-8",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0014.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0015",
+        "nombre": "prueba 3",
+        "cedula": "402-0987656-8",
+        "curso": "TCCC",
+        "duracion": "40 Horas",
+        "fecha": "04 DE JULIO DE 2026",
+        "plantilla": "tccc.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0015.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0016",
+        "nombre": "Edward Francisco",
+        "cedula": "402-0987656-8",
+        "curso": "TCCC",
+        "duracion": "40 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "tccc.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0016.pdf"
+    }
+]
