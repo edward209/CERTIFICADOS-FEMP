@@ -138,5 +138,35 @@
         "fecha": "27 DE JUNIO DE 2026",
         "plantilla": "tccc.pdf",
         "pdf": "static/certificados/generados/FEMP-2026-0016.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0015",
+        "nombre": "Edward",
+        "cedula": "402-0987656-8",
+        "curso": "TCCC",
+        "duracion": "40 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "tccc.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0015.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0016",
+        "nombre": "Edward",
+        "cedula": "402-0987656-8",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0016.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0017",
+        "nombre": "e32",
+        "cedula": "402-7764673-7",
+        "curso": "Manejo de Hemorragias",
+        "duracion": "8 Horas",
+        "fecha": "27 DE JUNIO DE 2026",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0017.pdf"
     }
 ]

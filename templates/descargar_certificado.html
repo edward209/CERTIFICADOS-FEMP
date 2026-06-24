@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Descargar Certificado</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
@@ -34,11 +35,44 @@
         <br><br>
 
         <div class="menu">
-            <button type="submit">Descargar PDF</button>
+            <button type="submit">Buscar Certificado</button>
             <a href="/">Volver al inicio</a>
         </div>
 
     </form>
+
+    {% if certificado %}
+
+        <hr>
+
+        <h2>Certificado encontrado</h2>
+
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ certificado.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Curso</th>
+                <td>{{ certificado.curso }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ certificado.fecha }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ certificado.codigo }}</td>
+            </tr>
+        </table>
+
+        <div class="menu">
+            <a href="/descargar-pdf/{{ certificado.codigo }}" class="btn">
+                📥 Descargar Certificado PDF
+            </a>
+        </div>
+
+    {% endif %}
 
 </div>
 

@@ -90,6 +90,10 @@ def logout():
 
 @app.route("/crear", methods=["GET", "POST"])
 def crear_certificado():
+
+    if not session.get("admin"):
+        return redirect("/login")
+        
     cursos = cargar_cursos()
 
     if request.method == "POST":
@@ -364,24 +368,53 @@ def editar_certificado(codigo):
         certificado=certificado,
         cursos=cursos
     )
+
 @app.route("/descargar", methods=["GET", "POST"])
 def descargar_certificado():
+
     error = None
 
     if request.method == "POST":
+
         codigo = request.form["codigo"].strip().upper()
-        fecha_ingresada = formatear_fecha(request.form["fecha"])
+        fecha = formatear_fecha(request.form["fecha"])
 
         certificados = cargar_certificados()
 
         for cert in certificados:
-            if cert["codigo"].upper() == codigo and cert["fecha"] == fecha_ingresada:
-                if os.path.exists(cert["pdf"]):
-                    return send_file(cert["pdf"], as_attachment=True)
 
-        error = "Código o fecha incorrectos. Verifique los datos."
+            if (
+                cert["codigo"].upper() == codigo
+                and cert["fecha"].upper() == fecha.upper()
+            ):
+                return render_template(
+                    "descargar_certificado.html",
+                    certificado=cert
+                )
 
-    return render_template("descargar_certificado.html", error=error)
+        error = "Código o fecha incorrectos"
+
+    return render_template(
+        "descargar_certificado.html",
+        error=error
+    )
+
+@app.route("/descargar-pdf/<codigo>")
+def descargar_pdf(codigo):
+
+    certificados = cargar_certificados()
+
+    for cert in certificados:
+        if cert["codigo"].upper() == codigo.upper():
+
+            if os.path.exists(cert["pdf"]):
+                return send_file(
+                    cert["pdf"],
+                    as_attachment=True,
+                    download_name=f"{cert['codigo']}.pdf"
+                )
+
+    return redirect("/descargar")
 
 if __name__ == "__main__":
     app.run(debug=True)
