@@ -10,7 +10,7 @@ def crear_qr(datos):
     os.makedirs("static/certificados/qr", exist_ok=True)
 
     codigo = datos["codigo"]
-    url_validacion = f"http://127.0.0.1:5000/verificar?codigo={codigo}"
+    url_validacion = f"https://certificados-femp.onrender.com/verificar?codigo={codigo}"
 
     ruta_qr = f"static/certificados/qr/{codigo}.png"
 
