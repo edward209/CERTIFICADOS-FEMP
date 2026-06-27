@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Certificado</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo" alt="Logo FEMP">
+
+    <h1>Solicitar Certificado</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Complete sus datos. Su solicitud será revisada por un administrador.
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        <label>Nombre completo:</label>
+        <input type="text" name="nombre" required>
+
+        <label>Cédula:</label>
+        <input type="text" name="cedula" required>
+
+        <label>Correo:</label>
+        <input type="email" name="correo" required>
+
+        <label>Teléfono:</label>
+        <input type="text" name="telefono" required>
+
+        <label>Curso realizado:</label>
+        <select name="curso" required>
+            {% for curso in cursos %}
+                <option value="{{ curso.nombre }}">
+                    {{ curso.nombre }} - {{ curso.duracion }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Fecha de finalización:</label>
+        <input type="date" name="fecha" required>
+
+        <br><br>
+
+        <div class="menu">
+            <button type="submit">Enviar Solicitud</button>
+            <a href="/">Volver al inicio</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

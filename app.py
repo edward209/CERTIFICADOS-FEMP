@@ -390,7 +390,14 @@ def editar_certificado(codigo):
     )
 
 @app.route("/descargar", methods=["GET", "POST"])
-def descargar_certificado():
+def cargar_solicitudes():
+    with open("data/solicitudes.json", "r", encoding="utf-8") as archivo:
+        return json.load(archivo)
+
+
+def guardar_solicitudes(solicitudes):
+    with open("data/solicitudes.json", "w", encoding="utf-8") as archivo:
+        json.dump(solicitudes, archivo, indent=4, ensure_ascii=False)
 
     error = None
 
@@ -425,16 +432,47 @@ def descargar_pdf(codigo):
     certificados = cargar_certificados()
 
     for cert in certificados:
+
         if cert["codigo"].upper() == codigo.upper():
 
-            if os.path.exists(cert["pdf"]):
-                return send_file(
-                    cert["pdf"],
-                    as_attachment=True,
-                    download_name=f"{cert['codigo']}.pdf"
-                )
+            ruta_pdf = crear_pdf_certificado(cert)
+
+            return send_file(
+                ruta_pdf,
+                as_attachment=True,
+                download_name=f"{cert['codigo']}.pdf"
+            )
 
     return redirect("/descargar")
+
+@app.route("/solicitar", methods=["GET", "POST"])
+def solicitar_certificado():
+    cursos = cargar_cursos()
+
+    if request.method == "POST":
+        solicitudes = cargar_solicitudes()
+
+        nueva_solicitud = {
+            "id": len(solicitudes) + 1,
+            "nombre": request.form["nombre"],
+            "cedula": request.form["cedula"],
+            "correo": request.form["correo"],
+            "telefono": request.form["telefono"],
+            "curso": request.form["curso"],
+            "fecha": formatear_fecha(request.form["fecha"]),
+            "estado": "Pendiente"
+        }
+
+        solicitudes.append(nueva_solicitud)
+        guardar_solicitudes(solicitudes)
+
+        return """
+        <h1>Solicitud enviada correctamente</h1>
+        <p>Su solicitud será revisada por la administración.</p>
+        <a href="/">Volver al inicio</a>
+        """
+
+    return render_template("solicitar_certificado.html", cursos=cursos)
 
 if __name__ == "__main__":
     app.run(debug=True)
