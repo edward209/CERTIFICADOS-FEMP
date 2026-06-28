@@ -474,5 +474,18 @@ def solicitar_certificado():
 
     return render_template("solicitar_certificado.html", cursos=cursos)
 
+@app.route("/solicitudes")
+def ver_solicitudes():
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    solicitudes = cargar_solicitudes()
+
+    return render_template(
+        "solicitudes.html",
+        solicitudes=solicitudes
+    )
+
 if __name__ == "__main__":
     app.run(debug=True)

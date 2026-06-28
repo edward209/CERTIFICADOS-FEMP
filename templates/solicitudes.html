@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes de Certificados</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="contenedor">
+
+    <img src="/static/img/logo.png" class="logo">
+
+    <h1>Solicitudes de Certificados</h1>
+
+    <p class="subtitulo" style="text-align:center;">
+        Revise y apruebe las solicitudes enviadas por los estudiantes.
+    </p>
+
+    <hr>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Curso</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for solicitud in solicitudes %}
+
+        <tr>
+
+            <td>{{ solicitud.id }}</td>
+
+            <td>{{ solicitud.nombre }}</td>
+
+            <td>{{ solicitud.cedula }}</td>
+
+            <td>{{ solicitud.curso }}</td>
+
+            <td>{{ solicitud.fecha }}</td>
+
+            <td>{{ solicitud.estado }}</td>
+
+            <td>
+
+                {% if solicitud.estado == "Pendiente" %}
+
+                <a href="/aprobar/{{ solicitud.id }}">
+                    ✅ Aprobar
+                </a>
+
+                <a href="/rechazar/{{ solicitud.id }}">
+                    ❌ Rechazar
+                </a>
+
+                {% else %}
+
+                {{ solicitud.estado }}
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <div class="menu">
+
+        <a href="/admin">Volver al Panel</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
