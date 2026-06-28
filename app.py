@@ -487,5 +487,78 @@ def ver_solicitudes():
         solicitudes=solicitudes
     )
 
+@app.route("/aprobar/<int:id>")
+def aprobar_solicitud(id):
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    solicitudes = cargar_solicitudes()
+    certificados = cargar_certificados()
+    cursos = cargar_cursos()
+
+    solicitud_encontrada = None
+
+    for solicitud in solicitudes:
+        if solicitud["id"] == id:
+            solicitud_encontrada = solicitud
+            break
+
+    if solicitud_encontrada is None:
+        return redirect("/solicitudes")
+
+    if solicitud_encontrada["estado"] != "Pendiente":
+        return redirect("/solicitudes")
+
+    duracion = ""
+    plantilla = ""
+
+    for curso in cursos:
+        if curso["nombre"] == solicitud_encontrada["curso"]:
+            duracion = curso["duracion"]
+            plantilla = curso["plantilla"]
+            break
+
+    codigo = generar_codigo()
+    
+    nuevo_certificado = {
+        "codigo": codigo,
+        "nombre": solicitud_encontrada["nombre"],
+        "cedula": solicitud_encontrada["cedula"],
+        "correo": solicitud_encontrada["correo"],
+        "telefono": solicitud_encontrada["telefono"],
+        "curso": solicitud_encontrada["curso"],
+        "fecha": solicitud_encontrada["fecha"]
+    }
+    
+    ruta_pdf = crear_pdf_certificado(nuevo_certificado)
+    nuevo_certificado["pdf"] = ruta_pdf
+
+    certificados.append(nuevo_certificado)
+
+    solicitud_encontrada["estado"] = "Aprobada"
+
+    guardar_certificados(certificados)
+    guardar_solicitudes(solicitudes)
+
+    return redirect("/admin")
+
+@app.route("/rechazar/<int:id>")
+def rechazar_solicitud(id):
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    solicitudes = cargar_solicitudes()
+
+    for solicitud in solicitudes:
+        if solicitud["id"] == id:
+            solicitud["estado"] = "Rechazada"
+            break
+
+    guardar_solicitudes(solicitudes)
+
+    return redirect("/solicitudes")
+
 if __name__ == "__main__":
     app.run(debug=True)
