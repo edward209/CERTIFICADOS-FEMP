@@ -24,22 +24,22 @@
         <p class="error" style="text-align:center;">{{ error }}</p>
     {% endif %}
 
-    <form method="POST">
+   <form method="POST">
 
-        <label>Código del certificado:</label>
-        <input type="text" name="codigo" placeholder="Ej: FEMP-2026-0001" required>
+    <label>Nombre completo:</label>
+    <input type="text" name="nombre" placeholder="Escriba su nombre completo" required>
 
-        <label>Fecha de finalización:</label>
-        <input type="date" name="fecha" required>
+    <label>Cédula:</label>
+    <input type="text" name="cedula" placeholder="Ej: 402-7764673-7" required>
 
-        <br><br>
+    <br><br>
 
-        <div class="menu">
-            <button type="submit">Buscar Certificado</button>
-            <a href="/">Volver al inicio</a>
-        </div>
+    <div class="menu">
+        <button type="submit">Buscar Certificado</button>
+        <a href="/">Volver al inicio</a>
+    </div>
 
-    </form>
+</form>
 
     {% if certificado %}
 

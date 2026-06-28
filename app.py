@@ -410,25 +410,24 @@ def descargar_certificado():
 
     if request.method == "POST":
 
-        codigo = request.form.get("codigo", "").strip().upper()
-        fecha = request.form.get("fecha", "").strip()
+        nombre = request.form.get("nombre", "").strip().lower()
+        cedula = request.form.get("cedula", "").strip()
 
-        if not codigo or not fecha:
-            error = "Debe completar el código y la fecha."
+        if not nombre or not cedula:
+            error = "Debe completar su nombre y cédula."
         else:
-            fecha_formateada = formatear_fecha(fecha)
             certificados = cargar_certificados()
 
             for cert in certificados:
                 if (
-                    cert["codigo"].upper() == codigo
-                    and cert["fecha"].upper() == fecha_formateada.upper()
+                    cert["nombre"].strip().lower() == nombre
+                    and cert["cedula"].strip() == cedula
                 ):
                     certificado = cert
                     break
 
             if certificado is None:
-                error = "Código o fecha incorrectos."
+                error = "No se encontró un certificado aprobado con esos datos."
 
     return render_template(
         "descargar_certificado.html",
