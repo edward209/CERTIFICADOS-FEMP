@@ -487,11 +487,7 @@ def solicitar_certificado():
         solicitudes.append(nueva_solicitud)
         guardar_solicitudes(solicitudes)
 
-        return """
-        <h1>Solicitud enviada correctamente</h1>
-        <p>Su solicitud será revisada por la administración.</p>
-        <a href="/">Volver al inicio</a>
-        """
+        return render_template("solicitud_enviada.html")
 
     return render_template("solicitar_certificado.html", cursos=cursos)
 
