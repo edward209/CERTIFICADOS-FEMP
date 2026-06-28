@@ -25,6 +25,16 @@ def guardar_certificados(certificados):
         json.dump(certificados, archivo, indent=4, ensure_ascii=False)
 
 
+def cargar_solicitudes():
+    with open("data/solicitudes.json", "r", encoding="utf-8") as archivo:
+        return json.load(archivo)
+
+
+def guardar_solicitudes(solicitudes):
+    with open("data/solicitudes.json", "w", encoding="utf-8") as archivo:
+        json.dump(solicitudes, archivo, indent=4, ensure_ascii=False)
+
+
 def cargar_usuarios():
     with open("data/usuarios.json", "r", encoding="utf-8") as archivo:
         return json.load(archivo)
@@ -93,7 +103,7 @@ def crear_certificado():
 
     if not session.get("admin"):
         return redirect("/login")
-        
+
     cursos = cargar_cursos()
 
     if request.method == "POST":
@@ -193,6 +203,7 @@ def verificar_certificado():
 
     return render_template("verificar_certificado.html", resultado=resultado)
 
+
 @app.route("/admin")
 def admin():
     if not session.get("admin"):
@@ -255,6 +266,7 @@ def eliminar_certificado(codigo):
         os.remove(pdf_a_eliminar)
 
     return redirect("/admin")
+
 
 @app.route("/plantillas", methods=["GET", "POST"])
 def plantillas():
@@ -331,6 +343,7 @@ def cursos():
         plantillas=plantillas
     )
 
+
 @app.route("/editar/<codigo>", methods=["GET", "POST"])
 def editar_certificado(codigo):
 
@@ -375,7 +388,6 @@ def editar_certificado(codigo):
         certificado["fecha"] = fecha_pdf
         certificado["plantilla"] = plantilla
 
-        # Regenerar PDF
         ruta_pdf = crear_pdf_certificado(certificado)
         certificado["pdf"] = ruta_pdf
 
@@ -389,42 +401,41 @@ def editar_certificado(codigo):
         cursos=cursos
     )
 
+
 @app.route("/descargar", methods=["GET", "POST"])
-def cargar_solicitudes():
-    with open("data/solicitudes.json", "r", encoding="utf-8") as archivo:
-        return json.load(archivo)
-
-
-def guardar_solicitudes(solicitudes):
-    with open("data/solicitudes.json", "w", encoding="utf-8") as archivo:
-        json.dump(solicitudes, archivo, indent=4, ensure_ascii=False)
+def descargar_certificado():
 
     error = None
+    certificado = None
 
     if request.method == "POST":
 
-        codigo = request.form["codigo"].strip().upper()
-        fecha = formatear_fecha(request.form["fecha"])
+        codigo = request.form.get("codigo", "").strip().upper()
+        fecha = request.form.get("fecha", "").strip()
 
-        certificados = cargar_certificados()
+        if not codigo or not fecha:
+            error = "Debe completar el código y la fecha."
+        else:
+            fecha_formateada = formatear_fecha(fecha)
+            certificados = cargar_certificados()
 
-        for cert in certificados:
+            for cert in certificados:
+                if (
+                    cert["codigo"].upper() == codigo
+                    and cert["fecha"].upper() == fecha_formateada.upper()
+                ):
+                    certificado = cert
+                    break
 
-            if (
-                cert["codigo"].upper() == codigo
-                and cert["fecha"].upper() == fecha.upper()
-            ):
-                return render_template(
-                    "descargar_certificado.html",
-                    certificado=cert
-                )
-
-        error = "Código o fecha incorrectos"
+            if certificado is None:
+                error = "Código o fecha incorrectos."
 
     return render_template(
         "descargar_certificado.html",
-        error=error
+        error=error,
+        certificado=certificado
     )
+
 
 @app.route("/descargar-pdf/<codigo>")
 def descargar_pdf(codigo):
@@ -444,6 +455,7 @@ def descargar_pdf(codigo):
             )
 
     return redirect("/descargar")
+
 
 @app.route("/solicitar", methods=["GET", "POST"])
 def solicitar_certificado():
@@ -484,6 +496,7 @@ def solicitar_certificado():
 
     return render_template("solicitar_certificado.html", cursos=cursos)
 
+
 @app.route("/solicitudes")
 def ver_solicitudes():
 
@@ -496,6 +509,7 @@ def ver_solicitudes():
         "solicitudes.html",
         solicitudes=solicitudes
     )
+
 
 @app.route("/aprobar/<int:id>")
 def aprobar_solicitud(id):
@@ -530,7 +544,7 @@ def aprobar_solicitud(id):
             break
 
     codigo = generar_codigo()
-    
+
     nuevo_certificado = {
         "codigo": codigo,
         "nombre": solicitud_encontrada["nombre"],
@@ -538,20 +552,24 @@ def aprobar_solicitud(id):
         "correo": solicitud_encontrada["correo"],
         "telefono": solicitud_encontrada["telefono"],
         "curso": solicitud_encontrada["curso"],
-        "fecha": solicitud_encontrada["fecha"]
+        "duracion": duracion,
+        "fecha": solicitud_encontrada["fecha"],
+        "plantilla": plantilla
     }
-    
+
     ruta_pdf = crear_pdf_certificado(nuevo_certificado)
     nuevo_certificado["pdf"] = ruta_pdf
 
     certificados.append(nuevo_certificado)
 
     solicitud_encontrada["estado"] = "Aprobada"
+    solicitud_encontrada["codigo"] = codigo
 
     guardar_certificados(certificados)
     guardar_solicitudes(solicitudes)
 
-    return redirect("/admin")
+    return redirect("/solicitudes")
+
 
 @app.route("/rechazar/<int:id>")
 def rechazar_solicitud(id):
@@ -569,6 +587,7 @@ def rechazar_solicitud(id):
     guardar_solicitudes(solicitudes)
 
     return redirect("/solicitudes")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
