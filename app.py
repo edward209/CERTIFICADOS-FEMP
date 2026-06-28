@@ -452,14 +452,24 @@ def solicitar_certificado():
     if request.method == "POST":
         solicitudes = cargar_solicitudes()
 
+        nombre = request.form.get("nombre", "").strip()
+        cedula = request.form.get("cedula", "").strip()
+        correo = request.form.get("correo", "").strip()
+        telefono = request.form.get("telefono", "").strip()
+        curso = request.form.get("curso", "").strip()
+        fecha = request.form.get("fecha", "").strip()
+
+        if not nombre or not cedula or not correo or not telefono or not curso or not fecha:
+            return "Faltan datos en el formulario", 400
+
         nueva_solicitud = {
             "id": len(solicitudes) + 1,
-            "nombre": request.form["nombre"],
-            "cedula": request.form["cedula"],
-            "correo": request.form["correo"],
-            "telefono": request.form["telefono"],
-            "curso": request.form["curso"],
-            "fecha": formatear_fecha(request.form["fecha"]),
+            "nombre": nombre,
+            "cedula": cedula,
+            "correo": correo,
+            "telefono": telefono,
+            "curso": curso,
+            "fecha": formatear_fecha(fecha),
             "estado": "Pendiente"
         }
 
