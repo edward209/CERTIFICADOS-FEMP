@@ -110,15 +110,11 @@ def crear_certificado():
         nombre = request.form["nombre"]
         cedula = request.form["cedula"]
         curso_nombre = request.form["curso"]
-        fecha = request.form["fecha"]
-        fecha_pdf = formatear_fecha(fecha)
 
-        duracion = ""
         plantilla = ""
 
         for curso in cursos:
             if curso["nombre"] == curso_nombre:
-                duracion = curso["duracion"]
                 plantilla = curso["plantilla"]
                 break
 
@@ -129,8 +125,6 @@ def crear_certificado():
             "nombre": nombre,
             "cedula": cedula,
             "curso": curso_nombre,
-            "duracion": duracion,
-            "fecha": fecha_pdf,
             "plantilla": plantilla
         }
 
@@ -146,8 +140,6 @@ def crear_certificado():
             nombre=nombre,
             cedula=cedula,
             curso=curso_nombre,
-            duracion=duracion,
-            fecha=fecha_pdf,
             codigo=codigo,
             plantilla=plantilla,
             ruta_pdf=ruta_pdf
@@ -172,9 +164,7 @@ def verificar_certificado():
                     "codigo": certificado["codigo"],
                     "nombre": certificado["nombre"],
                     "cedula": certificado["cedula"],
-                    "curso": certificado["curso"],
-                    "duracion": certificado["duracion"],
-                    "fecha": certificado["fecha"]
+                    "curso": certificado["curso"]
                 }
                 break
 
@@ -192,9 +182,7 @@ def verificar_certificado():
                     "codigo": certificado["codigo"],
                     "nombre": certificado["nombre"],
                     "cedula": certificado["cedula"],
-                    "curso": certificado["curso"],
-                    "duracion": certificado["duracion"],
-                    "fecha": certificado["fecha"]
+                    "curso": certificado["curso"]
                 }
                 break
 
@@ -368,24 +356,17 @@ def editar_certificado(codigo):
         nombre = request.form["nombre"]
         cedula = request.form["cedula"]
         curso_nombre = request.form["curso"]
-        fecha = request.form["fecha"]
 
-        fecha_pdf = formatear_fecha(fecha)
-
-        duracion = ""
         plantilla = ""
 
         for curso in cursos:
             if curso["nombre"] == curso_nombre:
-                duracion = curso["duracion"]
                 plantilla = curso["plantilla"]
                 break
 
         certificado["nombre"] = nombre
         certificado["cedula"] = cedula
         certificado["curso"] = curso_nombre
-        certificado["duracion"] = duracion
-        certificado["fecha"] = fecha_pdf
         certificado["plantilla"] = plantilla
 
         ruta_pdf = crear_pdf_certificado(certificado)
@@ -529,12 +510,10 @@ def aprobar_solicitud(id):
     if solicitud_encontrada["estado"] != "Pendiente":
         return redirect("/solicitudes")
 
-    duracion = ""
     plantilla = ""
 
     for curso in cursos:
         if curso["nombre"] == solicitud_encontrada["curso"]:
-            duracion = curso["duracion"]
             plantilla = curso["plantilla"]
             break
 
@@ -547,8 +526,6 @@ def aprobar_solicitud(id):
         "correo": solicitud_encontrada["correo"],
         "telefono": solicitud_encontrada["telefono"],
         "curso": solicitud_encontrada["curso"],
-        "duracion": duracion,
-        "fecha": solicitud_encontrada["fecha"],
         "plantilla": plantilla
     }
 
