@@ -37,7 +37,7 @@ def crear_pdf_certificado(datos):
     nombre = datos["nombre"].upper()
 
     pagina1.insert_text(
-        (ancho / 2 - 120, 325),
+        (ancho / 2 - 86, 344),
         nombre,
         fontsize=22,
         fontname="helv",
@@ -54,7 +54,7 @@ def crear_pdf_certificado(datos):
         cedula = datos["cedula"]
 
         pagina2.insert_text(
-            (360, 430),
+            (360, 445),
             codigo,
             fontsize=11,
             fontname="helv",
@@ -62,7 +62,7 @@ def crear_pdf_certificado(datos):
         )
 
         pagina2.insert_text(
-            (360, 445),
+            (360, 460),
             cedula,
             fontsize=11,
             fontname="helv",

@@ -168,5 +168,15 @@
         "fecha": "27 DE JUNIO DE 2026",
         "plantilla": "manejo_hemorragias.pdf",
         "pdf": "static/certificados/generados/FEMP-2026-0017.pdf"
+    },
+    {
+        "codigo": "FEMP-2026-0018",
+        "nombre": "prueba 9",
+        "cedula": "402-0955601-4",
+        "correo": "franciscoedward296@gmail.com",
+        "telefono": "8292695040",
+        "curso": "Manejo de Hemorragias",
+        "plantilla": "manejo_hemorragias.pdf",
+        "pdf": "static/certificados/generados/FEMP-2026-0018.pdf"
     }
 ]
