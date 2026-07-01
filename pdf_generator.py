@@ -1,8 +1,5 @@
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import landscape, A4
-from pypdf import PdfReader, PdfWriter
+import fitz
 import qrcode
-import io
 import os
 
 
@@ -28,56 +25,62 @@ def crear_pdf_certificado(datos):
 
     ruta_qr = crear_qr(datos)
 
-    packet = io.BytesIO()
-    c = canvas.Canvas(packet, pagesize=landscape(A4))
-    ancho, alto = landscape(A4)
-
-    c.setFillColorRGB(0, 0, 0)
+    documento = fitz.open(plantilla_pdf)
 
     # =========================
     # PÁGINA 1
     # =========================
+    pagina1 = documento[0]
 
-    # Nombre del estudiante
-    c.setFont("Helvetica-Bold", 20)
-    c.drawCentredString(ancho / 2, 267, datos["nombre"].upper())
+    ancho = pagina1.rect.width
 
-    c.showPage()
+    nombre = datos["nombre"].upper()
+
+    pagina1.insert_text(
+        (ancho / 2 - 120, 325),
+        nombre,
+        fontsize=22,
+        fontname="helv",
+        color=(0, 0, 0)
+    )
 
     # =========================
     # PÁGINA 2
     # =========================
+    if len(documento) > 1:
+        pagina2 = documento[1]
 
-    # Código del certificado
-    c.setFont("Helvetica-Bold", 11)
-    c.drawCentredString(ancho / 2, 163, datos["codigo"])
+        codigo = datos["codigo"]
+        cedula = datos["cedula"]
 
-    # Cédula del estudiante
-    c.setFont("Helvetica-Bold", 11)
-    c.drawCentredString(ancho / 2, 148, datos["cedula"])
+        pagina2.insert_text(
+            (360, 430),
+            codigo,
+            fontsize=11,
+            fontname="helv",
+            color=(0, 0, 0)
+        )
 
-    # QR
-    c.drawImage(ruta_qr, 700, 85, width=80, height=80)
+        pagina2.insert_text(
+            (360, 445),
+            cedula,
+            fontsize=11,
+            fontname="helv",
+            color=(0, 0, 0)
+        )
 
-    c.setFont("Helvetica-Bold", 7)
-    c.drawCentredString(740, 75, "VALIDAR CERTIFICADO")
+        rect_qr = fitz.Rect(700, 430, 780, 510)
+        pagina2.insert_image(rect_qr, filename=ruta_qr)
 
-    c.save()
-    packet.seek(0)
+        pagina2.insert_text(
+            (700, 525),
+            "VALIDAR CERTIFICADO",
+            fontsize=8,
+            fontname="helv",
+            color=(0, 0, 0)
+        )
 
-    overlay_pdf = PdfReader(packet)
-    plantilla = PdfReader(plantilla_pdf)
-    writer = PdfWriter()
-
-    for i in range(len(plantilla.pages)):
-        pagina_base = plantilla.pages[i]
-
-        if i < len(overlay_pdf.pages):
-            pagina_base.merge_page(overlay_pdf.pages[i])
-
-        writer.add_page(pagina_base)
-
-    with open(salida_pdf, "wb") as archivo_salida:
-        writer.write(archivo_salida)
+    documento.save(salida_pdf)
+    documento.close()
 
     return salida_pdf
